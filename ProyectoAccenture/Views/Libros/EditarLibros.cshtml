@@ -1,0 +1,86 @@
+﻿@using ProyectoAccenture.Models
+@model Libros
+
+@{
+    ViewBag.Title = "EditarLibro";
+    gestionLibrosEntities db = new gestionLibrosEntities();
+    List<Autores> autores = db.Autores.ToList();
+    List<Generos> generos = db.Generos.ToList();
+    List<Editoriales> editoriales = db.Editoriales.ToList();
+}
+
+<main class="container">
+
+    <form method="post">
+        Titulo:
+        <input type="text" name="Titulo" value="@this.Model.Titulo" class="form-control"required maxlength="20" placeholder="Ingrese un nombre..." />
+        Año:
+        <input type="number" name="Año" value="@this.Model.Año" class="form-control" required placeholder="Ingrese un año..."/>
+        Sinopsis:
+        <input type="text" name="Sinopsis" value="@this.Model.Sinopsis" class="form-control"required maxlength="20" placeholder="Ingrese una sinopsis..." />
+        @Html.HiddenFor(model =>this.Model.id_libro)
+
+        Autores:
+        @foreach (var item in this.Model.Autores)
+        {
+            <select name="autores" class="form-control">
+                <option selected="selected" value="@item.id_autor">@item.Nombre @item.Apellido</option>
+
+                @foreach (var item2 in autores)
+                {
+                    if (item.Nombre != item2.Nombre)
+                    {
+                        <option value="@item2.id_autor">@item2.Nombre @item2.Apellido</option>
+                    }
+                }
+            </select>
+        }
+        Genero:
+        <select class="form-control" name="id_genero">
+            @foreach (var item in generos)
+            {
+                if (item == this.Model.Generos)
+                {
+                    <option selected="selected" value="@item.id_genero">@item.Genero</option>
+
+                }
+                else
+                {
+                    <option value="@item.id_genero">@item.Genero</option>
+
+                }
+            }
+        </select>
+
+        Editorial:
+        <select class="form-control" name="id_editorial">
+            @foreach (var item in editoriales)
+            {
+                if (item == this.Model.Editoriales)
+                {
+                    <option selected="selected" value="@item.id_editorial">@item.Nombre</option>
+
+                }
+                else
+                {
+                    <option value="@item.id_editorial">@item.Nombre</option>
+
+                }
+            }
+        </select>
+
+
+
+
+
+        <button class="btn btn-primary form-control" style="margin-top:1em">
+            Enviar
+        </button>
+
+
+
+
+
+    </form>
+
+</main>

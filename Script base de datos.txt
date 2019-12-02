@@ -1,0 +1,62 @@
+create database gestionLibros
+
+use gestionLibros;
+
+create table Libros(
+id_libro int primary key identity(1,1),
+id_genero int,
+id_editorial int,
+Titulo varchar(20) default 'Sin asignar.',
+Año int not null,
+Sinopsis varchar(50) default 'Sin asignar.',
+constraint UQ_VALUES_LIBROS unique (id_libro,id_genero,id_editorial)
+
+
+);
+
+
+create table Generos(
+id_genero int primary key identity(1,1),
+Genero varchar(20) default 'Sin asignar.',
+constraint UQ_VALUES_GENEROS unique (id_genero,Genero)
+); 
+
+
+create table Editoriales(
+id_editorial int primary key identity(1,1),
+Nombre varchar(20) default 'Sin asignar.',
+constraint UQ_VALUES_EDITORIALES unique (id_editorial,Nombre)
+);
+
+
+create table Autores(
+id_autor int primary key identity(1,1),
+Nombre varchar(20) default'Sin asignar.',
+Apellido varchar (20) default'Sin asignar',
+Nacionalidad varchar(20) default 'Sin asignar.',
+constraint UQ_VALUES_AUTORES unique (id_autor,Nombre,Apellido)
+);
+
+create table LibrosXAutores(
+	id_autor int,
+	id_libro int,
+	CONSTRAINT FK_AUTOR FOREIGN KEY (id_autor) 
+		REFERENCES autores(id_autor)
+		ON DELETE CASCADE,
+	CONSTRAINT FK_BOOK FOREIGN KEY (id_libro) 
+		REFERENCES Libros(id_libro)
+		ON DELETE CASCADE,
+	CONSTRAINT PK_WRITTEN_BY PRIMARY KEY(id_autor,id_libro)
+
+);
+
+ALTER TABLE Libros
+ADD FOREIGN KEY (id_genero) REFERENCES Generos(id_genero);
+
+ALTER TABLE Libros
+ADD FOREIGN KEY (id_editorial) REFERENCES Editoriales(id_editorial);
+
+
+insert into Editoriales(Nombre) values ('Panini'),('Lamorrona')
+
+insert into Autores(Nombre,apellido,Nacionalidad) values('Juancito','laguna','uruguayo'),('Bondiola','johnson','USA'),('abdul','rajahsamat','england'),

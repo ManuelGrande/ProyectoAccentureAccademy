@@ -1,0 +1,34 @@
+﻿@using ProyectoAccenture.Models
+@model Autores
+
+
+@{
+    ViewBag.Title = "EditarAutor";
+}
+
+
+<main class="container">
+
+    <form method="post">
+
+        Nombre:
+        <input type="text" name="Nombre" value="@this.Model.Nombre" class="form-control" />
+        Apellido:
+        <input type="text" name="Apellido" value="@this.Model.Apellido" class="form-control" />
+        Nacionalidad:
+        <input type="text" name="Nacionalidad" value="@this.Model.Nacionalidad" class="form-control" />
+        @Html.HiddenFor(model => this.Model.id_autor)
+
+
+        <button class="btn btn-primary form-control" style="margin-top:1em">
+            Enviar
+        </button>
+
+    </form>
+
+
+
+
+</main>
+
+

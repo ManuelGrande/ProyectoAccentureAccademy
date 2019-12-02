@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gestionLibrosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="gestionLibrosEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Autores" EntityType="gestionLibrosModel.Autores" />
+    <EntitySet Name="Editoriales" EntityType="gestionLibrosModel.Editoriales" />
+    <EntitySet Name="Generos" EntityType="gestionLibrosModel.Generos" />
+    <EntitySet Name="Libros" EntityType="gestionLibrosModel.Libros" />
+    <AssociationSet Name="FK__Libros__id_edito__5DCAEF64" Association="gestionLibrosModel.FK__Libros__id_edito__5DCAEF64">
+      <End Role="Editoriales" EntitySet="Editoriales" />
+      <End Role="Libros" EntitySet="Libros" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Libros__id_gener__5CD6CB2B" Association="gestionLibrosModel.FK__Libros__id_gener__5CD6CB2B">
+      <End Role="Generos" EntitySet="Generos" />
+      <End Role="Libros" EntitySet="Libros" />
+    </AssociationSet>
+    <AssociationSet Name="LibrosXAutores" Association="gestionLibrosModel.LibrosXAutores">
+      <End Role="Autores" EntitySet="Autores" />
+      <End Role="Libros" EntitySet="Libros" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Autores">
+    <Key>
+      <PropertyRef Name="id_autor" />
+    </Key>
+    <Property Name="id_autor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Nacionalidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Libros" Relationship="gestionLibrosModel.LibrosXAutores" FromRole="Autores" ToRole="Libros" />
+  </EntityType>
+  <EntityType Name="Editoriales">
+    <Key>
+      <PropertyRef Name="id_editorial" />
+    </Key>
+    <Property Name="id_editorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Libros" Relationship="gestionLibrosModel.FK__Libros__id_edito__5DCAEF64" FromRole="Editoriales" ToRole="Libros" />
+  </EntityType>
+  <EntityType Name="Generos">
+    <Key>
+      <PropertyRef Name="id_genero" />
+    </Key>
+    <Property Name="id_genero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Genero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Libros" Relationship="gestionLibrosModel.FK__Libros__id_gener__5CD6CB2B" FromRole="Generos" ToRole="Libros" />
+  </EntityType>
+  <EntityType Name="Libros">
+    <Key>
+      <PropertyRef Name="id_libro" />
+    </Key>
+    <Property Name="id_libro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_genero" Type="Int32" />
+    <Property Name="id_autor" Type="Int32" />
+    <Property Name="id_editorial" Type="Int32" />
+    <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Año" Type="Int32" Nullable="false" />
+    <Property Name="Sinopsis" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Editoriales" Relationship="gestionLibrosModel.FK__Libros__id_edito__5DCAEF64" FromRole="Libros" ToRole="Editoriales" />
+    <NavigationProperty Name="Generos" Relationship="gestionLibrosModel.FK__Libros__id_gener__5CD6CB2B" FromRole="Libros" ToRole="Generos" />
+    <NavigationProperty Name="Autores" Relationship="gestionLibrosModel.LibrosXAutores" FromRole="Libros" ToRole="Autores" />
+  </EntityType>
+  <Association Name="FK__Libros__id_edito__5DCAEF64">
+    <End Type="gestionLibrosModel.Editoriales" Role="Editoriales" Multiplicity="0..1" />
+    <End Type="gestionLibrosModel.Libros" Role="Libros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Editoriales">
+        <PropertyRef Name="id_editorial" />
+      </Principal>
+      <Dependent Role="Libros">
+        <PropertyRef Name="id_editorial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Libros__id_gener__5CD6CB2B">
+    <End Type="gestionLibrosModel.Generos" Role="Generos" Multiplicity="0..1" />
+    <End Type="gestionLibrosModel.Libros" Role="Libros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Generos">
+        <PropertyRef Name="id_genero" />
+      </Principal>
+      <Dependent Role="Libros">
+        <PropertyRef Name="id_genero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LibrosXAutores">
+    <End Type="gestionLibrosModel.Autores" Role="Autores" Multiplicity="*" />
+    <End Type="gestionLibrosModel.Libros" Role="Libros" Multiplicity="*" />
+  </Association>
+</Schema>

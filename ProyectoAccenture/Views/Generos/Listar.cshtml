@@ -1,0 +1,80 @@
+﻿@using ProyectoAccenture.Models
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+
+
+
+
+</head>
+<body>
+    <header class="lala text-center">
+        <h1 class="jumbotron text-center">Listado de Generos</h1>
+    </header>
+
+    <main class="container">
+
+
+        <strong>Buscador:</strong>
+        <div class="text-right">
+
+
+            <form method="post">
+
+                <input name="FiltroTitulo" type="text" class="form-control" placeholder="Ingrese un titulo..." />
+
+                <button class="glyphicon glyphicon-search btn btn-primary"></button>
+
+            </form>
+
+
+
+
+        </div>
+
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    
+
+                </tr>
+            </thead>
+
+
+            <tbody>
+                @foreach (var genero in this.Model)
+                {
+                    <tr>
+
+                        <td>@genero.Genero</td>
+                        
+                        <td class="text-right">
+
+                            @Html.ActionLink(" ", "EditarGenero", new { Id = genero.id_genero },
+                            new
+                            {
+                                @class = "glyphicon glyphicon-pencil",
+                                style = "font-size:1.5em"
+                            })
+
+                            @Html.ActionLink(" ", "RemoverGenero", new { Id = genero.id_genero },
+                            new
+                            {
+                                @class = "glyphicon glyphicon-trash",
+                                style = "font-size:1.5em"
+                            })
+
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    </main>
+</body>
+

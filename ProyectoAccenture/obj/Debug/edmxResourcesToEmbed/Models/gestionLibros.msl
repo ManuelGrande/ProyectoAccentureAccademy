@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="gestionLibrosModelStoreContainer" CdmEntityContainer="gestionLibrosEntities">
+    <EntitySetMapping Name="Autores">
+      <EntityTypeMapping TypeName="gestionLibrosModel.Autores">
+        <MappingFragment StoreEntitySet="Autores">
+          <ScalarProperty Name="Nacionalidad" ColumnName="Nacionalidad" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="id_autor" ColumnName="id_autor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Editoriales">
+      <EntityTypeMapping TypeName="gestionLibrosModel.Editoriales">
+        <MappingFragment StoreEntitySet="Editoriales">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="id_editorial" ColumnName="id_editorial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Generos">
+      <EntityTypeMapping TypeName="gestionLibrosModel.Generos">
+        <MappingFragment StoreEntitySet="Generos">
+          <ScalarProperty Name="Genero" ColumnName="Genero" />
+          <ScalarProperty Name="id_genero" ColumnName="id_genero" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Libros">
+      <EntityTypeMapping TypeName="gestionLibrosModel.Libros">
+        <MappingFragment StoreEntitySet="Libros">
+          <ScalarProperty Name="Sinopsis" ColumnName="Sinopsis" />
+          <ScalarProperty Name="Año" ColumnName="Año" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="id_editorial" ColumnName="id_editorial" />
+          <ScalarProperty Name="id_autor" ColumnName="id_autor" />
+          <ScalarProperty Name="id_genero" ColumnName="id_genero" />
+          <ScalarProperty Name="id_libro" ColumnName="id_libro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="LibrosXAutores" TypeName="gestionLibrosModel.LibrosXAutores" StoreEntitySet="LibrosXAutores">
+      <EndProperty Name="Libros">
+        <ScalarProperty Name="id_libro" ColumnName="id_libro" />
+      </EndProperty>
+      <EndProperty Name="Autores">
+        <ScalarProperty Name="id_autor" ColumnName="id_autor" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

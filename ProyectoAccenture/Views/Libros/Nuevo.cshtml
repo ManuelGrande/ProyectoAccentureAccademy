@@ -1,0 +1,99 @@
+﻿@using ProyectoAccenture.Models
+@model Libros
+
+@{
+    ViewBag.Title = "Agregar";
+}
+
+
+
+@{
+    gestionLibrosEntities db = new gestionLibrosEntities();
+    List<Autores> autores = db.Autores.OrderBy(au => au.Nombre).ToList();
+    List<Editoriales> editoriales = db.Editoriales.ToList();
+    List<Generos> generos = db.Generos.ToList();
+}
+
+
+<script>
+
+
+
+
+    function nuevoAutor() {
+        var lista = document.getElementById("Autores");
+        var select = lista.firstElementChild;
+        var copiaSelect = select.cloneNode(true);
+        copiaSelect.selectedIndex = 0;
+        lista.appendChild(copiaSelect);
+    }
+</script>
+
+
+
+<main class="container">
+    <h1> @this.ViewBag.TituloPagina </h1>
+
+
+    <form method="post">
+        Nombre Del Libro:
+        <input type="text" name="Titulo" value="" class="form-control" required maxlength="50" placeholder="Ingrese un nombre..."/>
+        Año de lanzamiento:
+        <input type="number" name="Año" value="" class="form-control"  required placeholder="Ingrese un año..."/>
+        Sinopsis:
+        <input type="text" name="Sinopsis" value="" class="form-control" required maxlength="200" placeholder="Ingrese una sinopsis..."/>
+
+
+
+
+        <div id="Autores">
+            Autores:
+            <select required name="autores" class="form-control">
+             
+                <option selected value="-1">Seleccione un autor...</option>
+                @foreach (Autores autor in autores)
+                {
+                    <option value="@autor.id_autor">@autor.Nombre @autor.Apellido</option>
+                }
+            </select>
+
+        </div>
+
+        <div class="text-right">
+            <a onclick="nuevoAutor()" class="btn">otro autor...</a>
+        </div>
+
+
+
+        <div>Editorial:</div>
+        <select required name="editoriales" class="form-control" >
+            
+            <option selected value="-1">Seleccione una editorial...</option>
+            @foreach (Editoriales editorial in editoriales)
+            {
+                <option value="@editorial.id_editorial">@editorial.Nombre</option>
+            }
+        </select>
+
+
+        <div>Genero:</div>
+        <select required name="generos" class="form-control">
+           
+            <option selected value="-1">Seleccione una editorial...</option>
+            @foreach (Generos genero in generos)
+            {
+                <option value="@genero.id_genero">@genero.Genero</option>
+            }
+        </select>
+
+        <button class="btn btn-primary form-control" style="margin-top:1em">
+            Enviar
+        </button>
+
+
+    </form>
+
+</main>
+
+
+

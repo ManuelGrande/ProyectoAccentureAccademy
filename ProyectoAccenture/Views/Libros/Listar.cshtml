@@ -1,0 +1,114 @@
+﻿@using ProyectoAccenture.Models
+
+
+@{ 
+    gestionLibrosEntities db = new gestionLibrosEntities();
+}
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+
+
+
+
+</head>
+<body>
+    <header class="lala text-center">
+        <h1 class="jumbotron text-center">Listado</h1>
+    </header>
+
+    <main class="container">
+
+        <strong>Buscador:</strong>
+        <div class="text-right">
+
+            
+                        <form method="post">
+                                
+                                <input name="FiltroTitulo" type="text" class="form-control" placeholder="Ingrese un titulo..."/>
+                          
+                                <select class="form-control" name="FiltroAutor">
+                                    <option>Seleccione un autor...</option>
+                                    @foreach (Autores autor in db.Autores.ToList())
+                                    {
+
+                                        <option value="@autor.id_autor">@autor.Nombre @autor.Apellido</option>
+
+                                    }
+                                </select>
+                            
+
+                             
+                                <button class="glyphicon glyphicon-search btn btn-primary"></button>
+                          
+                        </form>
+         
+
+             
+
+        </div>
+
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Año</th>
+                    <th>Sinopsis</th>
+                    <th>Editorial</th>
+                    <th>Genero</th>
+                    <th>Autores</th>
+
+                </tr>
+            </thead>
+
+
+            <tbody>
+                @foreach (var libro in this.Model)
+                {
+                    <tr>
+
+                        <td>@libro.Titulo</td>
+                        <td>@libro.Año</td>
+                        <td>@libro.Sinopsis</td>
+                        <td>@libro.Editoriales.Nombre</td>
+                        <td>@libro.Generos.Genero</td>
+
+                        <td>
+                            <ul>
+                                @foreach (var item in libro.Autores)
+                                {
+                                    <li>@item.Nombre</li>
+                                }
+                            </ul>
+                        </td>
+
+                        <td class="text-right">
+
+                            @Html.ActionLink(" ", "EditarLibro", new { Id = libro.id_libro },
+                            new
+                            {
+                                @class = "glyphicon glyphicon-pencil",
+                                style = "font-size:1.5em"
+                            })
+
+                            @Html.ActionLink(" ", "RemoverLibros", new { Id = libro.id_libro },
+                            new
+                            {
+                                @class = "glyphicon glyphicon-trash",
+                                style = "font-size:1.5em"
+                            })
+
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    </main>
+</body>
+

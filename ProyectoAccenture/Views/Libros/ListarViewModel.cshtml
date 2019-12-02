@@ -1,0 +1,65 @@
+﻿
+@using ProyectoAccenture.Models
+@model IEnumerable<Libros>
+
+
+@{
+    ViewBag.Title = "Listar";
+}
+
+@{
+    gestionLibrosEntities db = new gestionLibrosEntities();
+}
+<div class="text-right">
+    @Html.ActionLink("Agregar", "Agregar")
+</div>
+
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Autor</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input name="FiltroTitulo" type="text" class="form-control" />
+                </td>
+                <td>
+                    <select class="form-control" name="FiltroAutor">
+                        <option>Seleccione un autor...</option>
+                        @foreach (Autores autor in db.Autores.ToList())
+                        {
+                            <option value="@autor.id_autor">@autor.Nombre</option>
+                        }
+                    </select>
+                </td>
+                <td class="text-right">
+                    <button class="glyphicon glyphicon-search btn btn-primary"></button>
+                </td>
+            
+            </tr>
+            @foreach (Libros libro in this.Model)
+            {
+                <tr>
+                    <td>@libro.Titulo</td>
+                    <td>
+                        @foreach (Autores autor in libro.Autores)
+                        {
+                            <div>@autor.Nombre</div>
+                        }
+                    </td>
+                    <td class="text-right">
+                        @Html.ActionLink("Editar", "Editar", new { Id = libro.id_libro })
+                        @Html.ActionLink("Eliminar", "Eliminar", new { Id = libro.id_libro })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
